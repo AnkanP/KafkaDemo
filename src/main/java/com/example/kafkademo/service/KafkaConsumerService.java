@@ -19,7 +19,7 @@ public class KafkaConsumerService {
 
 
     // Can directly pass the topic name and group id from the properties file
-    @KafkaListener(topics = "${kafka.mytopic.name}", groupId = "${kafka.consumer.groupid}")
+    @KafkaListener(topics = "${kafka.mytopic.name}", groupId = "${kafka.myconsumer.groupid}")
     public void consumeMessage(String msg) throws IOException {
         logger.info(String.format("#### -> Consumed message -> %s", msg));
 
