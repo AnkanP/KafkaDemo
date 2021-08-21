@@ -27,9 +27,9 @@ public class KafkaConsumerConfig {
         //props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,environment.getProperty("kafka.mybootstrap.address"));
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"b-2.demo-cluster-1.7x9lx9.c17.kafka.us-east-1.amazonaws.com:9092, b-1.demo-cluster-1.7x9lx9.c17.kafka.us-east-1.amazonaws.com:9092");
 
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.producer.key.serializer"));
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.producer.value.serializer"));
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, environment.getProperty("kafka.consumer.groupid"));
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myconsumer.key.deserializer"));
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myconsumer.value.deserializer"));
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, environment.getProperty("kafka.myconsumer.groupid"));
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
         return new DefaultKafkaConsumerFactory<>(props);
     }

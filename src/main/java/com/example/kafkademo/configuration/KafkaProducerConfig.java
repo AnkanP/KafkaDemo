@@ -25,8 +25,8 @@ public ProducerFactory<String, String> producerFactory(){
 
     Map<String,Object> props = new HashMap<>();
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,environment.getProperty("kafka.mybootstrap.address"));
-    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.producer.key.serializer"));
-    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.producer.value.serializer"));
+    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myproducer.key.serializer"));
+    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myproducer.value.serializer"));
 
     return new DefaultKafkaProducerFactory<>(props);
 }
