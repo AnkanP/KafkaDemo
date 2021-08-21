@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @Service
 public class KafkaConsumerService {
-    private static final Logger logger = LoggerFactory.getLogger(KafkaProducerService.class);
+    private static final Logger logger = LoggerFactory.getLogger(KafkaConsumerService.class);
     @Value(value="${kafka.mytopic.name}")
 
 
