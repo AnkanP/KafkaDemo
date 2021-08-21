@@ -25,21 +25,23 @@ public class KafkaConsumerConfig {
 
     public ConsumerFactory<String, String> consumerFactory(){
         Map<String,Object> props = new HashMap<>();
-        //props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,environment.getProperty("kafka.mybootstrap.address"));
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"b-2.demo-cluster-1.7x9lx9.c17.kafka.us-east-1.amazonaws.com:9092, b-1.demo-cluster-1.7x9lx9.c17.kafka.us-east-1.amazonaws.com:9092");
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,environment.getProperty("kafka.consumer.mybootstrap.address"));
+        //props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"b-2.demo-cluster-1.7x9lx9.c17.kafka.us-east-1.amazonaws.com:9092, b-1.demo-cluster-1.7x9lx9.c17.kafka.us-east-1.amazonaws.com:9092");
 
-//        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myconsumer.key.deserializer"));
-//        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myconsumer.value.deserializer"));
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myconsumer.key.deserializer"));
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myconsumer.value.deserializer"));
 
-        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class);
+     //   props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+     //   props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class);
 
         props.put(ConsumerConfig.GROUP_ID_CONFIG, environment.getProperty("kafka.myconsumer.groupid"));
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
         return new DefaultKafkaConsumerFactory<>(props);
     }
 
-
+// Concurrent Kafka Listener factory for multiple consumers
+//We use ConcurrentKafkaListenerContainerFactory to create containers for methods annotated with @KafkaListener.
+// The KafkaListenerContainer receives all the messages from all topics or partitions on a single thread
     @Bean
     public ConcurrentKafkaListenerContainerFactory<String, String>
     kafkaListenerContainerFactory() {

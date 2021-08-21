@@ -1,11 +1,11 @@
 package com.example.kafkademo.controller;
 
+import com.example.kafkademo.models.TopicCreation;
 import com.example.kafkademo.service.KafkaProducerService;
+import com.example.kafkademo.service.TopicCreationService;
+import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/kafka")
@@ -23,4 +23,20 @@ KafkaProducerService kafkaProducerService;
     public void sendMessageToKafka(@RequestParam("message") String message){
 kafkaProducerService.sendMessage(message);
     }
+
+    @PostMapping("/create")
+    public String createTopics(@RequestBody TopicCreation topicCreation){
+
+        //NewTopic newTopic = new NewTopic("abc",1, (short) 1);
+
+        TopicCreationService topicCreationService
+                = new TopicCreationService(
+                        new NewTopic(topicCreation.getTopicName(),
+                                topicCreation.getPartitions(),
+                                (short) topicCreation.getReplicas()));
+
+    return "topic created successfully: " + topicCreation.getTopicName();
+
+    }
+
 }
