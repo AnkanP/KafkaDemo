@@ -1,6 +1,7 @@
 package com.example.kafkademo.configuration;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,8 +26,10 @@ public ProducerFactory<String, String> producerFactory(){
 
     Map<String,Object> props = new HashMap<>();
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,environment.getProperty("kafka.mybootstrap.address"));
-    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myproducer.key.serializer"));
-    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myproducer.value.serializer"));
+    //props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myproducer.key.serializer"));
+    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+    //props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,environment.getProperty("kafka.myproducer.value.serializer"));
+    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,StringSerializer.class);
 
     return new DefaultKafkaProducerFactory<>(props);
 }
